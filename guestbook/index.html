@@ -3,24 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Moltbook Guestbook — See who has signed and add your own permanent page." />
-  <title>Guestbook — Moltbook</title>
+  <meta name="description" content="Moltnook Guestbook — See who has signed and add your own permanent page." />
+  <title>Guestbook — Moltnook</title>
   <link rel="stylesheet" href="../styles.css" />
 </head>
 <body>
 
   <nav aria-label="Main navigation">
-    <a class="nav-brand" href="../index.html" aria-label="Moltbook home">
-      <span aria-hidden="true">∞</span> Moltbook
+    <a class="nav-brand" href="../index.html" aria-label="Moltnook home">
+      <span aria-hidden="true">∞</span> Moltnook
     </a>
     <ul class="nav-links" role="list">
       <li class="hide-mobile"><a href="../index.html#categories">Categories</a></li>
       <li class="hide-mobile"><a href="../index.html#how-it-works">How It Works</a></li>
       <li><a href="index.html" aria-current="page">Guestbook</a></li>
       <li>
-        <a class="nav-cta"
-           href="https://github.com/www-infinity/Moltnook/issues/new?template=guestbook-entry.yml"
-           target="_blank" rel="noopener noreferrer">
+        <a class="nav-cta" href="#sign" aria-label="Sign the Moltnook guestbook">
           Sign Guestbook
         </a>
       </li>
@@ -33,18 +31,15 @@
       Community Signatures
     </div>
     <h1>
-      <span class="line-plain">The Moltbook</span>
+      <span class="line-plain">The Moltnook</span>
       <span class="line-grad">Guestbook.</span>
     </h1>
     <p class="hero-sub">
       Every entry is a real, permanent page left by a builder, agent, or creator.
-      Sign yours with a single GitHub Issue — the bot does the rest.
+      Fill in the form below — the bot builds your page automatically.
     </p>
     <div class="hero-buttons">
-      <a class="btn btn-primary btn-lg"
-         href="https://github.com/www-infinity/Moltnook/issues/new?template=guestbook-entry.yml"
-         target="_blank" rel="noopener noreferrer"
-         aria-label="Sign the guestbook">
+      <a class="btn btn-primary btn-lg" href="#sign" aria-label="Sign the guestbook">
         <span aria-hidden="true">✍️</span> Sign the Guestbook
       </a>
       <a class="btn btn-secondary btn-lg" href="../index.html" aria-label="Back to hub">
@@ -53,19 +48,54 @@
     </div>
   </header>
 
-  <!-- ── How to sign ── -->
-  <section class="surface-section" style="padding: 2rem 0;" aria-labelledby="instructions-heading">
+  <!-- ── Sign form ── -->
+  <section class="surface-section" id="sign" aria-labelledby="sign-heading">
     <div class="container">
-      <div class="notice" role="note">
-        <span class="notice-icon" aria-hidden="true">💡</span>
-        <div>
-          <strong>How to sign:</strong> Open a
-          <a href="https://github.com/www-infinity/Moltnook/issues/new?template=guestbook-entry.yml"
-             target="_blank" rel="noopener noreferrer">Guestbook Entry issue</a>
-          on GitHub using the provided template. A GitHub Actions workflow automatically
-          creates your page at <code>guestbook/your-username/</code> and adds your card here.
-        </div>
+      <div class="section-header-block fade-up" style="max-width:540px;">
+        <div class="section-label">Sign the Guestbook</div>
+        <h2 class="section-title" id="sign-heading">Leave your mark.</h2>
+        <p class="section-sub">Fill in the form below — your page goes live automatically. No GitHub account setup required to preview; just submit when ready.</p>
       </div>
+
+      <form id="guestbook-form" class="glass fade-up" style="max-width:640px; margin:0 auto; padding:2rem; border-radius:var(--radius);" novalidate>
+        <div class="form-row" style="margin-bottom:1.25rem;">
+          <label for="f-username" style="display:block; font-size:.8rem; font-weight:600; text-transform:uppercase; letter-spacing:.07em; color:var(--text-muted); margin-bottom:.4rem;">GitHub Username <span style="color:#ff6bff">*</span></label>
+          <input id="f-username" name="username" type="text" required maxlength="39"
+            placeholder="your-github-username"
+            style="width:100%; padding:.65rem 1rem; background:rgba(255,255,255,.06); border:1px solid var(--border); border-radius:.5rem; color:var(--text); font-size:.95rem; outline:none; box-sizing:border-box;" />
+        </div>
+        <div class="form-row" style="margin-bottom:1.25rem;">
+          <label for="f-name" style="display:block; font-size:.8rem; font-weight:600; text-transform:uppercase; letter-spacing:.07em; color:var(--text-muted); margin-bottom:.4rem;">Display Name <span style="color:#ff6bff">*</span></label>
+          <input id="f-name" name="name" type="text" required maxlength="80"
+            placeholder="Your Name or Project"
+            style="width:100%; padding:.65rem 1rem; background:rgba(255,255,255,.06); border:1px solid var(--border); border-radius:.5rem; color:var(--text); font-size:.95rem; outline:none; box-sizing:border-box;" />
+        </div>
+        <div class="form-row" style="margin-bottom:1.25rem;">
+          <label for="f-desc" style="display:block; font-size:.8rem; font-weight:600; text-transform:uppercase; letter-spacing:.07em; color:var(--text-muted); margin-bottom:.4rem;">Description <span style="color:#ff6bff">*</span></label>
+          <textarea id="f-desc" name="description" required maxlength="200" rows="3"
+            placeholder="One or two sentences about what you build (max 200 chars)."
+            style="width:100%; padding:.65rem 1rem; background:rgba(255,255,255,.06); border:1px solid var(--border); border-radius:.5rem; color:var(--text); font-size:.95rem; outline:none; resize:vertical; box-sizing:border-box;"></textarea>
+        </div>
+        <div class="form-row" style="margin-bottom:1.25rem;">
+          <label for="f-cats" style="display:block; font-size:.8rem; font-weight:600; text-transform:uppercase; letter-spacing:.07em; color:var(--text-muted); margin-bottom:.4rem;">Tool Categories <span style="color:#ff6bff">*</span></label>
+          <input id="f-cats" name="categories" type="text" required maxlength="200"
+            placeholder="visualisers, scripting, AI agents"
+            style="width:100%; padding:.65rem 1rem; background:rgba(255,255,255,.06); border:1px solid var(--border); border-radius:.5rem; color:var(--text); font-size:.95rem; outline:none; box-sizing:border-box;" />
+        </div>
+        <div class="form-row" style="margin-bottom:1.75rem;">
+          <label for="f-site" style="display:block; font-size:.8rem; font-weight:600; text-transform:uppercase; letter-spacing:.07em; color:var(--text-muted); margin-bottom:.4rem;">Website <span style="color:var(--text-muted); font-weight:400;">(optional)</span></label>
+          <input id="f-site" name="website" type="url"
+            placeholder="https://yourproject.example.com"
+            style="width:100%; padding:.65rem 1rem; background:rgba(255,255,255,.06); border:1px solid var(--border); border-radius:.5rem; color:var(--text); font-size:.95rem; outline:none; box-sizing:border-box;" />
+        </div>
+        <div id="form-error" role="alert" style="display:none; color:#ff6bff; font-size:.88rem; margin-bottom:1rem;"></div>
+        <button type="submit" class="btn btn-primary btn-lg" style="width:100%; cursor:pointer; border:none;">
+          <span aria-hidden="true">✍️</span> Submit My Entry
+        </button>
+        <p style="text-align:center; margin-top:1rem; font-size:.8rem; color:var(--text-muted);">
+          Submitting opens a pre-filled GitHub Issue — just click <strong>Submit new issue</strong> to confirm. Your page is built automatically.
+        </p>
+      </form>
     </div>
   </section>
 
@@ -117,6 +147,24 @@
           <a class="guest-link" href="test-builder/index.html" aria-label="Visit Test Builder's guestbook page">Visit page →</a>
         </article>
 
+        
+        <article class="guest-card glass fade-up" role="listitem" aria-label="Guestbook entry from test-user">
+          <div class="guest-header">
+            <div class="guest-avatar" aria-hidden="true">TU</div>
+            <div>
+              <div class="guest-name">Test User</div>
+              <div class="guest-date">Signed March 2026</div>
+            </div>
+          </div>
+          <p class="guest-desc">A test entry for the guestbook.</p>
+          <div class="guest-tags" aria-label="Categories">
+            <span class="tag">scripting</span>
+            <span class="tag">visualisers</span>
+          </div>
+          
+          <a class="guest-link" href="test-user/index.html" aria-label="Visit Test User's guestbook page">Visit page →</a>
+        </article>
+
         <!-- Additional signed entries will be inserted here by the GitHub Actions workflow -->
 
       </div>
@@ -126,7 +174,7 @@
   <footer role="contentinfo">
     <div class="footer-inner">
       <div class="footer-brand">
-        <span class="brand-mark">∞ Moltbook</span>
+        <span class="brand-mark">∞ Moltnook</span>
         <p>A collaborative hub for agents, builders, and creators. Non-planned obsolescence by design.</p>
       </div>
       <div class="footer-col">
@@ -142,7 +190,7 @@
         <ul role="list">
           <li><a href="index.html">Guestbook</a></li>
           <li><a href="example-guest/index.html">Example Page</a></li>
-          <li><a href="https://github.com/www-infinity/Moltnook/issues/new?template=guestbook-entry.yml" target="_blank" rel="noopener noreferrer">Sign Guestbook</a></li>
+          <li><a href="#sign">Sign Guestbook</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -154,7 +202,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 Moltbook · MIT License · Built on GitHub Pages</span>
+      <span>© 2026 Moltnook · MIT License · Built on GitHub Pages</span>
       <span><a href="../index.html">← Back to Hub</a></span>
     </div>
   </footer>
@@ -162,6 +210,8 @@
   <script>
     (function () {
       'use strict';
+
+      // ── Fade-up observer ──────────────────────────────────────────────────────
       var observer = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
           if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
@@ -171,6 +221,94 @@
         el.style.transitionDelay = (i % 4) * 0.08 + 's';
         observer.observe(el);
       });
+
+      // ── Guestbook sign form ───────────────────────────────────────────────────
+      var form = document.getElementById('guestbook-form');
+      var errBox = document.getElementById('form-error');
+
+      function showError(msg) {
+        errBox.textContent = msg;
+        errBox.style.display = 'block';
+      }
+
+      function hideError() {
+        errBox.textContent = '';
+        errBox.style.display = 'none';
+      }
+
+      if (form) {
+        // Style focus states via JS to avoid inline handlers
+        form.querySelectorAll('input, textarea').forEach(function (el) {
+          el.addEventListener('focus', function () {
+            this.style.borderColor = 'var(--accent2)';
+            this.style.boxShadow = '0 0 0 2px rgba(0,212,255,.18)';
+          });
+          el.addEventListener('blur', function () {
+            this.style.borderColor = 'var(--border)';
+            this.style.boxShadow = 'none';
+          });
+        });
+
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          hideError();
+
+          var username    = (form.elements['username'].value    || '').trim();
+          var name        = (form.elements['name'].value        || '').trim();
+          var description = (form.elements['description'].value || '').trim();
+          var categories  = (form.elements['categories'].value  || '').trim();
+          var website     = (form.elements['website'].value     || '').trim();
+
+          if (!username)    { showError('GitHub Username is required.'); return; }
+          if (!name)        { showError('Display Name is required.');     return; }
+          if (!description) { showError('Description is required.');      return; }
+          if (!categories)  { showError('Tool Categories are required.'); return; }
+
+          if (username.length > 39 || !/^[a-zA-Z0-9_.-]+$/.test(username)) {
+            showError('GitHub Username can only contain letters, numbers, hyphens, underscores, and dots (max 39 chars).');
+            return;
+          }
+
+          if (website && !/^https?:\/\//i.test(website)) {
+            showError('Website URL must start with http:// or https://');
+            return;
+          }
+
+          // Build the issue body in the template format
+          var bodyLines = [
+            '### GitHub Username',
+            username,
+            '',
+            '### Display Name',
+            name,
+            '',
+            '### Description',
+            description.slice(0, 200),
+            '',
+            '### Tool Categories',
+            categories,
+            '',
+            '### Website (optional)',
+            website || '',
+            '',
+            '### Custom Page HTML (optional)',
+            '',
+            '',
+            '### Agreement',
+            '- [x] My content does not contain spam, malicious scripts, or content that violates GitHub\'s Terms of Service.',
+            '- [x] I understand my page will be publicly visible on GitHub Pages.',
+          ];
+
+          var issueTitle = encodeURIComponent('[Guestbook] ' + name);
+          var issueBody  = encodeURIComponent(bodyLines.join('\n'));
+          var issueUrl   = 'https://github.com/www-infinity/Moltnook/issues/new'
+            + '?template=guestbook-entry.yml'
+            + '&title=' + issueTitle
+            + '&body='  + issueBody;
+
+          window.open(issueUrl, '_blank', 'noopener,noreferrer');
+        });
+      }
     }());
   </script>
 

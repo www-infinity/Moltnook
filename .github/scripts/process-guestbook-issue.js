@@ -8,15 +8,17 @@
  *   2. Updates guestbook/index.html      — inserts a new card into the listing
  *
  * Runs inside GitHub Actions with the following env vars:
- *   ISSUE_BODY    — raw issue body text
- *   ISSUE_NUMBER  — issue number
- *   ISSUE_AUTHOR  — GitHub login of the issue opener
+ *   ISSUE_BODY         — raw issue body text
+ *   ISSUE_NUMBER       — issue number
+ *   ISSUE_AUTHOR       — GitHub login of the issue opener
+ *   ANTHROPIC_API_KEY  — Claude API key (CLAUDE secret); enables AI page generation
  */
 
 'use strict';
 
-const fs   = require('fs');
-const path = require('path');
+const fs            = require('fs');
+const path          = require('path');
+const { execSync }  = require('child_process');
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -106,6 +108,7 @@ console.log(`  Display name : ${displayName}`);
 console.log(`  Categories   : ${categories.join(', ')}`);
 console.log(`  Website      : ${website || '(none)'}`);
 console.log(`  Custom HTML  : ${rawCustomHtml.length > 0 ? 'yes' : 'no'}`);
+console.log(`  Claude AI    : ${process.env.ANTHROPIC_API_KEY ? 'available' : 'not configured'}`);
 
 // ── Determine guest page content ──────────────────────────────────────────────
 
@@ -134,24 +137,62 @@ if (customHtmlIsSafe) {
   if (hasCustomHtml && !customHtmlIsSafe) {
     console.log('Custom HTML contains unsafe patterns — falling back to generated page.');
   }
-  // Generate a standard page from the issue metadata
-  const tagsHtml = categories
-    .map(t => `<span class="tag">${escapeHtml(t)}</span>`)
-    .join('\n            ');
 
-  const websiteBlock = website
-    ? `<a class="btn btn-outline" href="${website}" target="_blank" rel="noopener noreferrer" aria-label="Visit ${displayName}'s website">
+  // ── Try Claude AI page generation first ────────────────────────────────────
+  if (process.env.ANTHROPIC_API_KEY) {
+    console.log('Attempting Claude AI page generation...');
+    try {
+      const claudeScript = path.join(__dirname, 'generate-with-claude.js');
+      const claudeEnv = Object.assign({}, process.env, {
+        GUEST_USERNAME:     username,
+        GUEST_DISPLAY_NAME: rawDisplayName.slice(0, 80),
+        GUEST_DESCRIPTION:  rawDescription.slice(0, 200),
+        GUEST_CATEGORIES:   categories.join(', '),
+        GUEST_WEBSITE:      website,
+        GUEST_ISSUE_NUMBER: issueNumber,
+        GUEST_SIGNED_DATE:  signedDate,
+      });
+      const claudeOutput = execSync(`node "${claudeScript}"`, {
+        env: claudeEnv,
+        maxBuffer: 1024 * 1024 * 2, // 2 MB
+        timeout: 60000,              // 60 s
+        stdio: ['ignore', 'pipe', 'pipe'],
+      });
+      const claudeHtml = claudeOutput.toString('utf8').trim();
+      if (
+        claudeHtml.toLowerCase().startsWith('<!doctype html') &&
+        !UNSAFE_PATTERNS.some(p => p.test(claudeHtml))
+      ) {
+        console.log('Claude AI page accepted — using AI-generated page.');
+        guestPageHtml = claudeHtml;
+      } else {
+        console.log('Claude output failed validation — falling back to static template.');
+      }
+    } catch (err) {
+      console.log(`Claude generation failed (${err.message}) — falling back to static template.`);
+    }
+  }
+
+  // ── Static template fallback ───────────────────────────────────────────────
+  if (!guestPageHtml) {
+    console.log('Generating page from static template...');
+    const tagsHtml = categories
+      .map(t => `<span class="tag">${escapeHtml(t)}</span>`)
+      .join('\n            ');
+
+    const websiteBlock = website
+      ? `<a class="btn btn-outline" href="${website}" target="_blank" rel="noopener noreferrer" aria-label="Visit ${displayName}'s website">
           Visit Website →
         </a>`
-    : '';
+      : '';
 
-  guestPageHtml = `<!DOCTYPE html>
+    guestPageHtml = `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="${displayName} – Moltbook guestbook page." />
-  <title>${displayName} – Moltbook Guestbook</title>
+  <meta name="description" content="${displayName} – Moltnook guestbook page." />
+  <title>${displayName} – Moltnook Guestbook</title>
   <link rel="stylesheet" href="../../styles.css" />
   <style>
     .guest-page-hero {
@@ -201,7 +242,7 @@ if (customHtmlIsSafe) {
 <body>
 
   <nav aria-label="Main navigation">
-    <a class="nav-brand" href="../../index.html" aria-label="Moltbook home">&#8734; Moltbook</a>
+    <a class="nav-brand" href="../../index.html" aria-label="Moltnook home">&#8734; Moltnook</a>
     <ul class="nav-links" role="list">
       <li><a href="../../index.html#categories">Tools</a></li>
       <li><a href="../../index.html#how-it-works">How It Works</a></li>
@@ -264,7 +305,7 @@ if (customHtmlIsSafe) {
     <div class="container">
       <span class="footer-mark" aria-hidden="true">&#8734;</span>
       <p>
-        <strong>Moltbook</strong> &mdash; Non-planned obsolescence. Open forever.<br/>
+        <strong>Moltnook</strong> &mdash; Non-planned obsolescence. Open forever.<br/>
         <a href="../../index.html">Hub</a> &middot;
         <a href="../index.html">Guestbook</a> &middot;
         <a href="https://github.com/www-infinity/Moltnook" target="_blank" rel="noopener noreferrer">GitHub</a>
@@ -274,6 +315,7 @@ if (customHtmlIsSafe) {
 
 </body>
 </html>`;
+  }
 }
 
 // ── Write guest page ──────────────────────────────────────────────────────────
