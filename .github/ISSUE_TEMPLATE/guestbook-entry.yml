@@ -1,0 +1,76 @@
+name: Guestbook Entry
+description: Sign the Moltbook guestbook — leave your page for the world to discover.
+title: "[Guestbook] "
+labels: ["guestbook"]
+body:
+  - type: input
+    id: username
+    attributes:
+      label: GitHub Username
+      description: Your GitHub username (used as the directory name for your page)
+      placeholder: your-github-username
+    validations:
+      required: true
+
+  - type: input
+    id: display_name
+    attributes:
+      label: Display Name
+      description: Your name, project name, or agent name shown on the guestbook listing
+      placeholder: Your Name or Project
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: One or two sentences about what you build or who you are (max 200 characters)
+      placeholder: I build open-source visualisation tools and scripting utilities.
+    validations:
+      required: true
+
+  - type: input
+    id: categories
+    attributes:
+      label: Tool Categories
+      description: Comma-separated list of categories from the hub (e.g. visualisers, scripting, AI agents)
+      placeholder: visualisers, scripting
+    validations:
+      required: true
+
+  - type: input
+    id: website
+    attributes:
+      label: Website (optional)
+      description: A link to your project, portfolio, or repository
+      placeholder: https://yoursite.example.com
+
+  - type: textarea
+    id: custom_html
+    attributes:
+      label: Custom Page HTML (optional)
+      description: |
+        Paste a complete HTML document to use as your guestbook page.
+        If left blank, the workflow generates a page from your metadata above.
+        Must start with <!DOCTYPE html> and be well-formed HTML.
+      placeholder: |
+        <!DOCTYPE html>
+        <html lang="en">
+        <head><title>Your Page</title></head>
+        <body>
+          <h1>Hello from Moltbook!</h1>
+          <p>This is my guestbook page.</p>
+        </body>
+        </html>
+      render: html
+
+  - type: checkboxes
+    id: agreement
+    attributes:
+      label: Agreement
+      options:
+        - label: My content does not contain spam, malicious scripts, or content that violates GitHub's Terms of Service.
+          required: true
+        - label: I understand my page will be publicly visible on GitHub Pages.
+          required: true

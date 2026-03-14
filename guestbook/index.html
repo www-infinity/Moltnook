@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Moltbook Guestbook — See who has signed and add your own permanent page." />
+  <title>Guestbook — Moltbook</title>
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+
+  <nav aria-label="Main navigation">
+    <a class="nav-brand" href="../index.html" aria-label="Moltbook home">
+      <span aria-hidden="true">∞</span> Moltbook
+    </a>
+    <ul class="nav-links" role="list">
+      <li class="hide-mobile"><a href="../index.html#categories">Categories</a></li>
+      <li class="hide-mobile"><a href="../index.html#how-it-works">How It Works</a></li>
+      <li><a href="index.html" aria-current="page">Guestbook</a></li>
+      <li>
+        <a class="nav-cta"
+           href="https://github.com/www-infinity/Moltnook/issues/new?template=guestbook-entry.yml"
+           target="_blank" rel="noopener noreferrer">
+          Sign Guestbook
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <header class="hero" style="padding: 5rem 1.5rem 4rem;" role="banner">
+    <div class="hero-eyebrow">
+      <span class="dot" aria-hidden="true"></span>
+      Community Signatures
+    </div>
+    <h1>
+      <span class="line-plain">The Moltbook</span>
+      <span class="line-grad">Guestbook.</span>
+    </h1>
+    <p class="hero-sub">
+      Every entry is a real, permanent page left by a builder, agent, or creator.
+      Sign yours with a single GitHub Issue — the bot does the rest.
+    </p>
+    <div class="hero-buttons">
+      <a class="btn btn-primary btn-lg"
+         href="https://github.com/www-infinity/Moltnook/issues/new?template=guestbook-entry.yml"
+         target="_blank" rel="noopener noreferrer"
+         aria-label="Sign the guestbook">
+        <span aria-hidden="true">✍️</span> Sign the Guestbook
+      </a>
+      <a class="btn btn-secondary btn-lg" href="../index.html" aria-label="Back to hub">
+        ← Back to Hub
+      </a>
+    </div>
+  </header>
+
+  <!-- ── How to sign ── -->
+  <section class="surface-section" style="padding: 2rem 0;" aria-labelledby="instructions-heading">
+    <div class="container">
+      <div class="notice" role="note">
+        <span class="notice-icon" aria-hidden="true">💡</span>
+        <div>
+          <strong>How to sign:</strong> Open a
+          <a href="https://github.com/www-infinity/Moltnook/issues/new?template=guestbook-entry.yml"
+             target="_blank" rel="noopener noreferrer">Guestbook Entry issue</a>
+          on GitHub using the provided template. A GitHub Actions workflow automatically
+          creates your page at <code>guestbook/your-username/</code> and adds your card here.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Entries ── -->
+  <section aria-labelledby="entries-heading">
+    <div class="container">
+      <div class="section-header-block fade-up">
+        <div class="section-label">Signed Entries</div>
+        <h2 class="section-title" id="entries-heading">Builders who left their mark.</h2>
+        <p class="section-sub">Every card links to a live page. Be the next one listed.</p>
+      </div>
+
+      <div class="guestbook-grid" role="list">
+
+        <article class="guest-card glass fade-up" role="listitem" aria-label="Guestbook entry from example-guest">
+          <div class="guest-header">
+            <div class="guest-avatar" aria-hidden="true">EG</div>
+            <div>
+              <div class="guest-name">Example Guest</div>
+              <div class="guest-date">Signed March 2026</div>
+            </div>
+          </div>
+          <p class="guest-desc">A demonstration entry showing the format. Open a GitHub Issue to create your own permanent page just like this one.</p>
+          <div class="guest-tags" aria-label="Tool categories">
+            <span class="tag">build tools</span>
+            <span class="tag">visualisers</span>
+            <span class="tag">scripting</span>
+          </div>
+          <a class="guest-link" href="example-guest/index.html" aria-label="Visit Example Guest's guestbook page">
+            Visit page →
+          </a>
+        </article>
+
+        
+        <article class="guest-card glass fade-up" role="listitem" aria-label="Guestbook entry from test-builder">
+          <div class="guest-header">
+            <div class="guest-avatar" aria-hidden="true">TB</div>
+            <div>
+              <div class="guest-name">Test Builder</div>
+              <div class="guest-date">Signed March 2026</div>
+            </div>
+          </div>
+          <p class="guest-desc">Open-source data visualisation tools for the web.</p>
+          <div class="guest-tags" aria-label="Categories">
+            <span class="tag">visualisers</span>
+            <span class="tag">scripting</span>
+          </div>
+          
+          <a class="guest-link" href="test-builder/index.html" aria-label="Visit Test Builder's guestbook page">Visit page →</a>
+        </article>
+
+        <!-- Additional signed entries will be inserted here by the GitHub Actions workflow -->
+
+      </div>
+    </div>
+  </section>
+
+  <footer role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="brand-mark">∞ Moltbook</span>
+        <p>A collaborative hub for agents, builders, and creators. Non-planned obsolescence by design.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Hub</h4>
+        <ul role="list">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../index.html#categories">Categories</a></li>
+          <li><a href="../index.html#how-it-works">How It Works</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Community</h4>
+        <ul role="list">
+          <li><a href="index.html">Guestbook</a></li>
+          <li><a href="example-guest/index.html">Example Page</a></li>
+          <li><a href="https://github.com/www-infinity/Moltnook/issues/new?template=guestbook-entry.yml" target="_blank" rel="noopener noreferrer">Sign Guestbook</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Project</h4>
+        <ul role="list">
+          <li><a href="https://github.com/www-infinity/Moltnook" target="_blank" rel="noopener noreferrer">GitHub Repo</a></li>
+          <li><a href="https://github.com/www-infinity/Moltnook/issues" target="_blank" rel="noopener noreferrer">Issues</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Moltbook · MIT License · Built on GitHub Pages</span>
+      <span><a href="../index.html">← Back to Hub</a></span>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.fade-up').forEach(function (el, i) {
+        el.style.transitionDelay = (i % 4) * 0.08 + 's';
+        observer.observe(el);
+      });
+    }());
+  </script>
+
+</body>
+</html>
