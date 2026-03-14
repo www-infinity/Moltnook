@@ -1,5 +1,5 @@
 name: Guestbook Entry
-description: Sign the Moltbook guestbook — leave your page for the world to discover.
+description: Sign the Moltnook guestbook — leave your page for the world to discover.
 title: "[Guestbook] "
 labels: ["guestbook"]
 body:
@@ -59,7 +59,7 @@ body:
         <html lang="en">
         <head><title>Your Page</title></head>
         <body>
-          <h1>Hello from Moltbook!</h1>
+          <h1>Hello from Moltnook!</h1>
           <p>This is my guestbook page.</p>
         </body>
         </html>
